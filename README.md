@@ -35,12 +35,18 @@ python3 detail_spider_requests #启动详情页更新爬虫
 于是乎进行新的探索,发现这个新的套路和原来是差距不大的,
 就是用woff文件来代替了之前的svg,woff肯定是更有难度的,
 难点在于woff转换的xml内容里面不包含文字,大概是这样子的
+
 ![image](https://github.com/Pineapple1996/pics/blob/master/Screenshot%20from%202019-07-26%2016-29-00.png?raw=true)
 
 但是他的对应的中文字符呢?我们尝试打开.woff文件看看
+
 ![image](https://github.com/Pineapple1996/pics/blob/master/Screenshot%20from%202019-07-26%2016-37-05.png?raw=true)
+        
 啧啧啧～～～
+
 ![image](http://www.gaoxiaogif.com/d/file/201807/8744497c1a6fbfcc6f907c7e0deab626.gif)
-这就有点意思了，这不是能对应上么，可是这么多文字不能拿下来啊！
+ 
+ 这就有点意思了，这不是能对应上么，可是这么多文字不能拿下来啊！
 我采取的办法就是硬刚了,然后在过程中我才发现都是泪
+
 <img src="http://img.mp.itc.cn/upload/20170317/c7e62fde63294fc889a7e345a71ad0a1_th.jpeg" width = "200" height = "200" alt="图片名称" align=center />
