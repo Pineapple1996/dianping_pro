@@ -1,4 +1,4 @@
-##大众点评爬虫
+## 大众点评爬虫
 ### 1.目录结构
 ```python
 ├── data      #数据文件夹
@@ -29,4 +29,5 @@ python3 start_search.py #启动搜索页面爬虫
 python3 start_detail.py #启动详情页面爬虫（由于点评策略更新这个暂时失效）
 python3 detail_spider_requests #启动详情页更新爬虫
 ```
-#
+### 3.反爬虫
+
