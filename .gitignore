@@ -1,0 +1,7 @@
+*.pyc
+*.json
+*.log
+**/.idea/
+**/test/
+*.xml
+**/data/
