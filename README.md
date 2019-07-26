@@ -29,5 +29,13 @@ python3 start_search.py #启动搜索页面爬虫
 python3 start_detail.py #启动详情页面爬虫（由于点评策略更新这个暂时失效）
 python3 detail_spider_requests #启动详情页更新爬虫
 ```
-### 3.反爬虫
+### 3.反爬虫(19.7.10)
+之前大众点评采用的css匹配svg转文字的办法来进行页面的字体加密,
+前几天做大众点评的时候突然发现这个办法行不通了,
+于是乎进行新的探索,发现这个新的套路和原来是差距不大的,
+就是用woff文件来代替了之前的svg,woff肯定是更有难度的,
+难点在于woff转换的xml内容里面不包含文字,大概是这样子的
+![image](https://github.com/Pineapple1996/pics/blob/master/Screenshot%20from%202019-07-26%2016-29-00.png?raw=true)
 
+但是他的对应的中文字符呢?我们尝试打开.woff文件看看
+![image](https://github.com/Pineapple1996/pics/blob/master/Screenshot%20from%202019-07-26%2016-37-05.png?raw=true)
