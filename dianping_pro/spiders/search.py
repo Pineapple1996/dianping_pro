@@ -27,7 +27,6 @@ class SpiderSpider(scrapy.Spider):
         path = '{}/city.json'.format(parent_path)
         with open(path,'r') as f:
             lines = f.readlines()
-            # print(lines[:1850][::-1])
             for i in lines:
                 try:
                     data = json.loads(i)
@@ -42,7 +41,6 @@ class SpiderSpider(scrapy.Spider):
                     url = 'http://'+domain+m
                     print(url)
                     HEADERS['Referer'] = url
-                    # return
                     yield scrapy.Request(
                         url=url,
                         headers=HEADERS,
@@ -159,17 +157,7 @@ class SpiderSpider(scrapy.Spider):
             region = filter_tags(region_tag_text)
             type = filter_tags(tag_taste_text)
 
-            # if li.css('.comment .mean-price b'):
-            #     mean_price_b_text = li.css(
-            #         '.comment .mean-price b').extract()[0]
-            #     mean_price_span = li.css(
-            #         '.comment .mean-price b .shopNum').extract()[0]
-            #     mean_price = mean_price_b_text
-            #     for span in mean_price_span:
-            #         price_num = convert_num(span)
-            #         mean_price += price_num
-            # else:
-            #     mean_price = ''
+
             item['shop_name'] = shop_name  # 名称，
             item['city'] = response.meta['city']  # 城市，
             item['district'] = response.meta['district']  # 区，
@@ -181,7 +169,7 @@ class SpiderSpider(scrapy.Spider):
             item['address'] = address  # 地址，
             item['type'] = type  # 行业，
             item['review_num'] = review_num
-            # item['mean_price'] =
+
             print(item)
             yield item
             next_page = response.css('.page .next::attr(href)').extract()
@@ -196,211 +184,3 @@ class SpiderSpider(scrapy.Spider):
                     meta={'city': response.meta['city'], 'district': response.meta['district'], 'area': response.meta['area'],'page':page,'link':response.meta['link']},
                     callback=self.parse
                 )
-
-            # if tag_taste_text:
-            #     taste_tag = li.css(
-            #         '.tag-addr a[data-click-name=shop_tag_cate_click] .tag').extract()[0]
-            #     for i in tag_taste_list:
-            #         result = convert_hans(i)
-            #         pattern = '<span class="{}">'.format(i)
-            #         taste_tag = taste_tag.replace(pattern, result)
-            #     tag_taste = taste_tag.replace(
-            #         '<span class="tag">', '').replace(
-            #         '</span>', '')
-            # else:
-            #     tag_taste = ''
-            #     for i in tag_taste_list:
-            #         result = convert_hans(i)
-            #         tag_taste += result
-            # if region_tag_text:
-            #     region_tag = li.css(
-            #         '.tag-addr a[data-click-name=shop_tag_region_click] .tag').extract()[0]
-            #     for i in tag_region_list:
-            #         result = convert_hans(i)
-            #         pattern = '<span class="{}"></span>'.format(i)
-            #         region_tag = region_tag.replace(pattern, result)
-            #     tag_region = region_tag.replace(
-            #         '<span class="tag">', '').replace('</span>', '')
-            # else:
-            #     tag_region = ''
-            #     for i in tag_region_list:
-            #         result = convert_hans(i)
-            #         tag_region += result
-            #
-            # recommend_dish = li.css('.recommend-click::text').extract()
-            # if li.css('.comment .mean-price b::text'):
-            #     mean_price_b_text = li.css(
-            #         '.comment .mean-price b::text').extract()[0]
-            #     mean_price_span = li.css(
-            #         '.comment .mean-price b span::attr(class)').extract()
-            #     mean_price = mean_price_b_text
-            #     for span in mean_price_span:
-            #         price_num = convert_num(span)
-            #         mean_price += price_num
-            # else:
-            #     mean_price = ''
-            # comment_span = li.css('.comment-list >span')
-            # comment_score = []
-            # for span in comment_span:
-            #     comment_title = span.css('span::text').extract()[0]
-            #     score_list = span.css('b >span::attr(class)').extract()
-            #     if len(score_list) == 2:
-            #         score = '{}.{}'.format(
-            #             convert_num(
-            #                 score_list[0]), convert_num(
-            #                 score_list[1]))
-            #     else:
-            #         score = '{}.{}'.format(convert_num(score_list[0]), '1')
-            #     comment_score.append({'title': comment_title, 'score': score})
-            #
-            # item['map_poi'] = map_poi
-            # item['address'] = address
-            # item['recommend_dish'] = recommend_dish
-            # item['comment_score'] = comment_score
-            # item['mean_price'] = mean_price
-            # item['review_num'] = review_num
-            # item['tag_taste'] = tag_taste
-            # item['tag_region'] = tag_region
-            # item['area'] = response.meta['area']
-            # item['town'] = response.meta['town']
-
-    # def parse(self, response):
-    #
-        # shop_list = response.css('.shop-list >ul >li')
-        # item = DazhongdianpingItem()
-        # for li in shop_list:
-        #     if not li:
-        #         continue
-        #     shop_id = li.css('.tit >a[data-click-name=shop_title_click]::attr(data-shopid)').extract()[0]
-        #     shop_name = li.css('.tit >a h4::text').extract()[0]
-        #     rank_star = li.css(
-        #         '.comment .sml-rank-stars::attr(title)').extract()[0]
-        #     map_poi = li.css('.J_operate .o-map::attr(data-poi)').extract()[0]
-        #     map_poi = decode_poi(map_poi)
-        #
-        #     review_num_span = li.css(
-        #         '.comment  .review-num b span::attr(class)').extract()
-    #         review_num = ''
-    #         for span in review_num_span:
-    #             review_num += convert_num(span)
-    #         address = li.css(
-    #             '.J_operate .o-map::attr(data-address)').extract()[0]
-    #
-    #         region_tag_text = li.css(
-    #             '.tag-addr a[data-click-name=shop_tag_region_click] .tag::text').extract()
-    #         tag_taste_text = li.css(
-    #             '.tag-addr a[data-click-name=shop_tag_cate_click] .tag::text').extract()
-    #         tag_taste_list = li.css(
-    #             '.tag-addr a[data-click-name=shop_tag_cate_click] .tag span::attr(class)').extract()
-    #         tag_region_list = li.css(
-    #             '.tag-addr a[data-click-name=shop_tag_region_click] .tag span::attr(class)').extract()
-    #         if tag_taste_text:
-    #             taste_tag = li.css(
-    #                 '.tag-addr a[data-click-name=shop_tag_cate_click] .tag').extract()[0]
-    #             for i in tag_taste_list:
-    #                 result = convert_hans(i)
-    #                 pattern = '<span class="{}">'.format(i)
-    #                 taste_tag = taste_tag.replace(pattern, result)
-    #             tag_taste = taste_tag.replace(
-    #                 '<span class="tag">', '').replace(
-    #                 '</span>', '')
-    #         else:
-    #             tag_taste = ''
-    #             for i in tag_taste_list:
-    #                 result = convert_hans(i)
-    #                 tag_taste += result
-    #         if region_tag_text:
-    #             region_tag = li.css(
-    #                 '.tag-addr a[data-click-name=shop_tag_region_click] .tag').extract()[0]
-    #             for i in tag_region_list:
-    #                 result = convert_hans(i)
-    #                 pattern = '<span class="{}"></span>'.format(i)
-    #                 region_tag = region_tag.replace(pattern, result)
-    #             tag_region = region_tag.replace(
-    #                 '<span class="tag">', '').replace('</span>', '')
-    #         else:
-    #             tag_region = ''
-    #             for i in tag_region_list:
-    #                 result = convert_hans(i)
-    #                 tag_region += result
-    #
-    #         recommend_dish = li.css('.recommend-click::text').extract()
-    #         if li.css('.comment .mean-price b::text'):
-    #             mean_price_b_text = li.css(
-    #                 '.comment .mean-price b::text').extract()[0]
-    #             mean_price_span = li.css(
-    #                 '.comment .mean-price b span::attr(class)').extract()
-    #             mean_price = mean_price_b_text
-    #             for span in mean_price_span:
-    #                 price_num = convert_num(span)
-    #                 mean_price += price_num
-    #         else:
-    #             mean_price = ''
-    #         comment_span = li.css('.comment-list >span')
-    #         comment_score = []
-    #         for span in comment_span:
-    #             comment_title = span.css('span::text').extract()[0]
-    #             score_list = span.css('b >span::attr(class)').extract()
-    #             if len(score_list) == 2:
-    #                 score = '{}.{}'.format(
-    #                     convert_num(
-    #                         score_list[0]), convert_num(
-    #                         score_list[1]))
-    #             else:
-    #                 score = '{}.{}'.format(convert_num(score_list[0]), '1')
-    #             comment_score.append({'title': comment_title, 'score': score})
-    #         item['shop_id'] = shop_id
-    #         item['shop_name'] = shop_name
-    #         item['rank_star'] = rank_star
-    #         item['map_poi'] = map_poi
-    #         item['address'] = address
-    #         item['recommend_dish'] = recommend_dish
-    #         item['comment_score'] = comment_score
-    #         item['mean_price'] = mean_price
-    #         item['review_num'] = review_num
-    #         item['tag_taste'] = tag_taste
-    #         item['tag_region'] = tag_region
-    #         item['area'] = response.meta['area']
-    #         item['town'] = response.meta['town']
-    #         yield item
-    #
-    #     next_page = response.css('.page .next::attr(href)').extract()
-    #     if next_page and not response.meta['get_classfy']:
-    #         url = next_page[0]
-    #         HEADERS['Referer'] = url
-    #         yield scrapy.Request(
-    #             url=url,
-    #             callback=self.parse,
-    #             dont_filter=True,
-    #             headers=HEADERS,
-    #             meta={
-    #                 'get_classfy': False,
-    #                 'town':response.meta['town'],
-    #                 'area':response.meta['area'],
-    #
-    #                   }
-    #         )
-    #
-    #     if response.meta['get_classfy']:
-    #         a = response.css('#classfy >a')
-    #         m = dict()
-    #         for i in a:
-    #             title = i.css('a span::text').extract()[0]
-    #             link = i.css('a::attr(data-cat-id)').extract()[0]
-    #             m[title] = link
-    #
-    #         for i in m:
-    #             url = 'http://www.dianping.com/chengdu/ch10/g{}{}'.format(
-    #                 m[i], response.meta['location_id'])
-    #             yield scrapy.Request(
-    #                 url=url,
-    #                 callback=self.parse,
-    #                 dont_filter=True,
-    #                 headers=HEADERS,
-    #                 meta={
-    #                     'get_classfy': False,
-    #                     'town': response.meta['town'],
-    #                     'area': response.meta['area'],
-    #
-    #                       }
-    #             )
