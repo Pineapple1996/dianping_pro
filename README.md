@@ -49,4 +49,4 @@ python3 detail_spider_requests #启动详情页更新爬虫
  这就有点意思了，这不是能对应上么，可是这么多文字不能拿下来啊！
 我采取的办法就是硬刚了,然后在过程中我才发现都是泪
 
-<img src="http://img.mp.itc.cn/upload/20170317/c7e62fde63294fc889a7e345a71ad0a1_th.jpeg" width = "200" height = "200" alt="图片名称" align=center />
+<img src="https://tu1.whhost.net/uploads/20180222/17/1519290577-eQvhswJOXD.png" width = "200" height = "200" alt="图片名称" align=center />
